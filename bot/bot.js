@@ -15,6 +15,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const DateTime = require('date-and-time');
 const engine = require('./engine.js');
 const NotificationManager = require('./notification-manager.js');
+const Agent = require('socks5-https-client/lib/Agent');
 
 const config = require('./config.json');
 
@@ -34,7 +35,17 @@ else {
 
 console.log('Initializing the bot...')
 const bot = new TelegramBot(config.bot.token, {
-    polling: true
+    polling: true,
+    request: {
+        agentClass: Agent,
+        agentOptions: {
+            socksHost: config.proxy.socksHost,
+            socksPort: config.proxy.socksPort,
+            // If authorization is needed:
+             socksUsername: config.proxy.socksUsername,
+             socksPassword: config.proxy.socksPassword
+        }
+    }
 });
 
 bot.getMe().then(function (info) {

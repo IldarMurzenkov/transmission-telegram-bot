@@ -12,5 +12,11 @@
             "password": ""
         },
         "port": 9091
+    },
+    "proxy": {
+        "socksHost": "",
+        "socksPort": "",
+        "socksUsername" : "",
+        "socksPassword": ""
     }
 }
